@@ -1,0 +1,21 @@
+name: 文档闸门
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.8", "3.x"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: 文档闸门
+        run: python3 .agents/scripts/check_docs.py
+      - name: 闸门测试
+        run: python3 -m unittest discover -s .agents/tests

@@ -1,0 +1,9 @@
+{
+  "description": "受治理文档的字数上限，按去掉空白后的字符数计。受治理范围自动包含仓库根的 *.md、docs/ 与 .agents/references/ 下的所有文档，以及 .changes/README.md；技能（.agents/skills/）不登记字数控额。超出上限或贴住上限都会失败，漏登记同样失败。",
+  "budgets": {
+    "AGENTS.md": 2950,
+    "README.md": 2800,
+    ".agents/references/doc-standard.md": 2250,
+    ".changes/README.md": 1950
+  }
+}
