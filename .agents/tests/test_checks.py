@@ -75,6 +75,14 @@ class ChainOrderTest(GateCase):
         (self.root / ".changes" / "good" / "sub").mkdir()
         self.assertTrue(any("不得有子目录" in error for error in chain_order.check(self.root)))
 
+    def test_archive_name_without_version_rejected(self):
+        write(self.root, ".changes/archive/2026-01-01-old/intent.md", "# Intent: x\n\n## Problem\n\nok\n")
+        self.assertTrue(any("归档目录名" in error for error in chain_order.check(self.root)))
+
+    def test_archive_name_with_version_accepted(self):
+        write(self.root, ".changes/archive/2026-01-01-v1-old/intent.md", "# Intent: x\n\n## Problem\n\nok\n")
+        self.assertEqual(chain_order.check(self.root), [])
+
 
 class DocBudgetsTest(GateCase):
     def _manifest(self, body: str) -> None:

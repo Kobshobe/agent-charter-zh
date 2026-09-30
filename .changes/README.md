@@ -6,7 +6,7 @@
 
 一条链是 `.changes/<slug>/` 下按进度长出的文件（见下节），只允许 `intent.md`、`spec.md`、`plan.md` 三个。`<slug>` 是连字符分隔的小写短语，描述改动本身，不编号。
 
-完成的链移到 `.changes/archive/YYYY-MM-DD-<slug>/`，日期用归档当天。根目录只放在制的链——产物不带状态行，"在制"与"已完成"只能靠位置区分。
+完成的链移到 `.changes/archive/YYYY-MM-DD-v{n}-<slug>/`，日期用归档当天，`v{n}` 当天从 1 递增，同一天的链按它排先后。根目录只放在制的链——产物不带状态行，"在制"与"已完成"只能靠位置区分。
 
 ## 层数按边界浮动
 
@@ -59,7 +59,8 @@
 ## 归档
 
 ```sh
-git mv .changes/<slug> .changes/archive/$(date +%F)-<slug>
+n=$(find .changes/archive -maxdepth 1 -name "$(date +%F)-v*" | wc -l)
+git mv .changes/<slug> ".changes/archive/$(date +%F)-v$((n + 1))-<slug>"
 ```
 
 归档的链不再改动。闸门只校验 `archive/` 下的路径形状，不校验内容格式——格式会演进，冻结的历史不该被追着改。

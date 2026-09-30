@@ -38,7 +38,7 @@ python3 .agents/scripts/check_docs.py
 ## 日常怎么用
 
 - **每个非平凡改动**：在 `.changes/<slug>/` 写 `intent.md`；改动改变系统行为或越过策略边界时补 `spec.md`；落地时写 `plan.md`。链的规则见 [`.changes/README.md`](.changes/README.md)，完整范例见 [`.agents/references/chain-example/`](.agents/references/chain-example/)。
-- **完成后归档**：`git mv .changes/<slug> .changes/archive/$(date +%F)-<slug>`。
+- **完成后归档**：按 [`.changes/README.md`](.changes/README.md) 的归档命令，移到 `.changes/archive/YYYY-MM-DD-v{n}-<slug>/`。
 - **推送前**：按 `pre-push-checks` 选最小检查集；涉及文档或链的改动跑 `python3 .agents/scripts/check_docs.py`。
 - **评审**：按 `code-review` 走阻塞性要求与人工检查。
 - **精简与清理**：找简化候选用 `find-simplifications`，判文风用 `prose-standard`，清推理过程泄漏用 `trim-cot-leakage`。
